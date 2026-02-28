@@ -138,6 +138,7 @@ For example in a `claude_desktop_config.json` (Claude Desktop):
 |---|---|---|
 | `list_courses` | List all enrolled courses | — |
 | `get_lessons` | List all lessons in a course sorted by index | `course_id` |
+| `get_lesson_slides` | Get all slides with HTML content for a lesson | `lesson_id` |
 | `get_recent_posts` | Fetch recent threads from a course board | `course_id`, `limit` (default 20) |
 | `get_thread_detail` | Get full thread with answers and comments | `thread_id` |
 | `search_posts` | Search threads by keyword | `course_id`, `query`, `limit` (default 15) |

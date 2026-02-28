@@ -25,7 +25,7 @@ load_dotenv()
 ENV_PATH = Path(__file__).parent / ".env"
 COUNTRY = os.environ.get("EDSTEM_COUNTRY", "us").lower()
 LOGIN_URL = f"https://{COUNTRY}.edstem.org/login"
-GT_SSO_HOST = "sso.gatech.edu"
+GT_SSO_HOST = os.environ.get("GT_SSO_HOST", "sso.gatech.edu")
 
 
 def get_driver() -> webdriver.Chrome:

@@ -141,6 +141,23 @@ def get_lessons(course_id: int) -> list[dict]:
 
 @mcp.tool()
 @with_auth_retry
+def get_lesson_slides(lesson_id: int) -> list[dict]:
+    """Get all slides for a specific lesson, including their HTML content."""
+    slides = client.get_lesson_slides(lesson_id)
+    return [
+        {
+            "id": s["id"],
+            "title": s.get("title", ""),
+            "index": s.get("index", 0),
+            "type": s.get("type", ""),
+            "content": s.get("content", ""),
+        }
+        for s in slides
+    ]
+
+
+@mcp.tool()
+@with_auth_retry
 def search_posts(course_id: int, query: str, limit: int = 15) -> list[dict]:
     """Search for posts in a course by keyword."""
     threads = client.search_threads(course_id, query, limit=limit)
