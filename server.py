@@ -116,6 +116,31 @@ def get_thread_detail(thread_id: int) -> dict:
 
 @mcp.tool()
 @with_auth_retry
+def get_lessons(course_id: int) -> list[dict]:
+    """Get all lessons for a course, sorted by index."""
+    lessons = client.get_lessons(course_id)
+    return sorted(
+        [
+            {
+                "id": l["id"],
+                "title": l["title"],
+                "index": l["index"],
+                "kind": l.get("kind", ""),
+                "status": l.get("status", ""),
+                "state": l.get("state", ""),
+                "slide_count": l.get("slide_count", 0),
+                "due_at": l.get("due_at"),
+                "available_at": l.get("available_at"),
+                "is_hidden": l.get("is_hidden", False),
+            }
+            for l in lessons
+        ],
+        key=lambda l: l["index"],
+    )
+
+
+@mcp.tool()
+@with_auth_retry
 def search_posts(course_id: int, query: str, limit: int = 15) -> list[dict]:
     """Search for posts in a course by keyword."""
     threads = client.search_threads(course_id, query, limit=limit)

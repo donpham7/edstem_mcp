@@ -40,6 +40,11 @@ class EdStemClient:
         r.raise_for_status()
         return (r.json() or {}).get("thread", {})
 
+    def get_lessons(self, course_id: int):
+        r = httpx.get(f"{BASE_URL}/courses/{course_id}/lessons", headers=self.headers)
+        r.raise_for_status()
+        return (r.json() or {}).get("lessons", [])
+
     def search_threads(self, course_id: int, query: str, limit: int = 20):
         params = {"limit": limit, "sort": "new", "filter": "all"}
         r = httpx.get(
