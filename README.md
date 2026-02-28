@@ -145,6 +145,21 @@ To find a `course_id`, call `list_courses` first.
 
 ---
 
+## SSO Compatibility
+
+The automated login flow in `get_token.py` is built and tested for **Georgia Tech SSO** (`sso.gatech.edu`) using the GT CAS login form (username/password fields + Duo MFA).
+
+**Other institutions:** The automated browser login will not work out of the box for non-GT SSO providers, as login form selectors and MFA flows vary by institution. If you want to adapt this for another institution, fork the repo and update the following in `get_token.py`:
+
+- `SSO_HOST` — your institution's SSO hostname
+- `try_fill_gt_sso()` — update form field selectors to match your SSO login page
+- `try_click_trust_browser()` — verify the trust-browser button ID matches
+- Remove or replace the Duo-specific handling if your institution uses a different MFA provider
+
+Everything else (EdStem API client, MCP tools, token caching) is institution-agnostic and requires no changes.
+
+---
+
 ## File Overview
 
 | File | Purpose |
